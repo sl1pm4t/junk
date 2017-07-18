@@ -35,8 +35,9 @@ func main() {
 	signal.Notify(interrupt, os.Interrupt)
 
 	// create StackDriver trace client
-	traceClient, _ = trace.NewClient(shared.Ctx, *proj)
-	errorsClient, _ = errors.NewClient(shared.Ctx, *proj, "ws", "v1.0", true)
+	ctx := context.Background()
+	traceClient, _ = trace.NewClient(ctx, *proj)
+	errorsClient, _ = errors.NewClient(ctx, *proj, "ws", "v1.0", true)
 
 	u := url.URL{Scheme: "ws", Host: *addr, Path: "/event"}
 	log.Printf("connecting to %s", u.String())
